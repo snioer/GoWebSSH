@@ -2,7 +2,7 @@
 <br/>
 
 ### 介绍：
-* Golang + Vue 实现一个Web版单文件的SSH管理工具
+* Golang + (Vue3 + Vite2)  实现一个Web版单文件的SSH管理工具
 * 借助于Golang embed,打包以后只有一个文件,简单高效
 * 使用及编译过程,超级简单,绝对保姆级
 <br/>
@@ -37,7 +37,7 @@
 
 ### 前端介绍：
 * 使用最新版Vue3 + TypeScript实现前端逻辑
-* 前端UI使用最近element-plus(目前还没有稳定版)
+* 前端UI使用最近element-plus最新稳定版
 * 基于最新版xterm.js + Websocket 实现终端
 <br/>
 
@@ -77,11 +77,54 @@ go build
 * cert.pem HTTPS服务器证书文件
 * key.key  HTTPS服务器私钥文件
 
+<br/>
+
 ### 注意: 
 * 当程序检测到cert.pem 和 key.key 文件,会使用https协议,否则使用http协议
 * 用户只需把证书文件和私钥文件放到 .GoWebSSH 目录就可以了
 
+<br/>
 
+### 求助: 
+* 为了方便有一个在线demo,求助一个低配版云主机
+
+<br/>
+
+### Systemd 方式启动: 
+```shell
+cat > /etc/systemd/system/gowebapp.service << "END"
+##################################
+[Unit]
+Description=GoWebApp
+After=network.target
+
+[Service]
+Type=simple
+User=root
+
+## 注:根据可执行文件路径修改
+ExecStart=/usr/local/GoWebSSH
+
+# auto restart
+StartLimitIntervalSec=0
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
+##################################
+END
+
+
+systemctl daemon-reload
+
+systemctl start gowebapp.service
+
+systemctl enable gowebapp.service
+
+```
+
+<br/>
 
 ---
 ### 演示截图：

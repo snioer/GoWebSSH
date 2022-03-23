@@ -8,9 +8,9 @@ npm install
 
 npm run build
 
-cd gowebssh
+cd dist
 
-cp -a * ../../gossh/webroot
+cp -af * ../../gossh/webroot
 
 cd ../../gossh  
 
@@ -20,3 +20,4 @@ go build
 
 打开链接 http://127.0.0.1:8899/ 开始享用吧
 ```
+
